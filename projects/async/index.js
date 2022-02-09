@@ -85,25 +85,25 @@ filterInput.addEventListener('input', function () {
 loadingFailedBlock.classList.add('hidden');
 filterBlock.classList.add('hidden');
 
-async function tryToLoad() { 
+async function tryToLoad() {
   try {
-    towns = await loadTows();
+    towns = await loadTowns();
     loadingBlock.classList.add('hidden');
     loadingFailedBlock.classList.add('hidden');
     filterBlock.classList.remove('hidden');
-  } catch (e) { 
+  } catch (e) {
     loadingBlock.classList.add('hidden');
     loadingFailedBlock.classList.remove('hidden');
   }
 }
 
-function updateFilter(filterValue) { 
+function updateFilter(filterValue) {
   filterResult.innerHTML = '';
 
   const fragment = document.createDocumentFragment();
 
-  for (const town of towns) { 
-    if (filterValue && isMatching(town.name, filterValue)) { 
+  for (const town of towns) {
+    if (filterValue && isMatching(town.name, filterValue)) {
       const townDiv = document.createElement('div');
       townDiv.textContent = town.name;
       fragment.append(townDiv);
@@ -111,7 +111,6 @@ function updateFilter(filterValue) {
   }
 
   filterResult.append(fragment);
-
 }
 
 tryToLoad();
