@@ -153,25 +153,25 @@ function collectDOMStat(root) {
     classes: {},
     texts: 0
   };
-  
-  function recursiveCollect(root) {
-    for (let elem of root.childNodes) {
-      if (elem.nodeType == 3) {
+
+  function recursiveCollect(root) { 
+    for (let elem of root.childNodes) { 
+      if (elem.nodeType == 3) { 
         DOMStat['texts']++;
       } else {
         let elemTag = elem.tagName;
-        let elemClass = elem.className;
-          
-        if (elemTag != "") {
-          console.log(DOMStat["tags"][elemTag]);
-          DOMStat["tags"][elemTag] = (elemTag in DOMStat["tags"]) ? DOMStat["tags"][elemTag]++ : 0;
+        let elemClass = elem.classList;
+        
+        if (elemTag != ""){
+          // console.log(DOMStat["tags"][elemTag]);
+          DOMStat["tags"][elemTag] = (elemTag in DOMStat["tags"]) ? ++DOMStat["tags"][elemTag] : 1;
         }
-        if (elemClass != "") {
-          DOMStat["classes"][elemClass] = (elemClass in DOMStat["classes"]) ? DOMStat["classes"][elemClass]++ : 0;
+        for (let cls of elemClass) {
+          DOMStat["classes"][cls] = (cls in DOMStat["classes"]) ? ++DOMStat["classes"][cls] : 1;
         }
-          
-        if (elem.childNodes.length > 0) {
-          collectDOMStat(elem)
+        
+        if (elem.childNodes.length > 0) { 
+          recursiveCollect(elem)
         }
       }
     }
